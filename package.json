@@ -1,0 +1,31 @@
+{
+  "name": "semester-2-dc-circuit-lab",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:ui": "playwright test",
+    "test:performance": "node scripts/measure-performance.mjs",
+    "test:security": "node scripts/verify-security.mjs"
+  },
+  "dependencies": {
+    "katex": "^0.19.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.58.0",
+    "@types/katex": "^0.16.7",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0",
+    "vitest": "^4.0.0"
+  }
+}
