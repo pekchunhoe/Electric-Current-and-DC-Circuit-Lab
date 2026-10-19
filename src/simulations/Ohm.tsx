@@ -1,4 +1,9 @@
 import { network, resistivity, type Arrangement } from "../physics/engine";
+import {
+  WIRE_MATERIALS,
+  WIRE_MATERIAL_OPTIONS,
+  type WireMaterialId,
+} from "../physics/materials";
 import { useLab } from "../hooks/useLab";
 import {
   Activity,
@@ -25,13 +30,14 @@ export default function Ohm({ mode, resetKey }: SimProps) {
     r2: 3,
     length: 2,
     area: 1,
-    rho: 1.7e-8,
+    material: "copper" as WireMaterialId,
     device: "resistor",
     arrangement: "single",
     closed: true,
     points: [] as Point[],
   });
-  const wireR = resistivity(s.rho, s.length, s.area * 1e-6),
+  const material = WIRE_MATERIALS[s.material];
+  const wireR = resistivity(material.rho, s.length, s.area * 1e-6),
     base = s.device === "wire" ? wireR : s.r;
   const eq =
     s.arrangement === "single"
@@ -61,10 +67,11 @@ export default function Ohm({ mode, resetKey }: SimProps) {
                   style={{
                     width: `${30 + s.length * 12}%`,
                     height: 12 + s.area * 10,
+                    background: material.appearance,
                   }}
                 />
                 <span>
-                  L = {s.length} m · A = {s.area} mm²
+                  {material.name} · L = {s.length} m · A = {s.area} mm²
                 </span>
               </div>
             )}
@@ -111,14 +118,14 @@ export default function Ohm({ mode, resetKey }: SimProps) {
               <>
                 <Select
                   label="Material"
-                  value={String(s.rho)}
-                  options={[
-                    ["1.7e-8", "Copper · 1.7 × 10⁻⁸ Ω m"],
-                    ["2.82e-8", "Aluminium · 2.82 × 10⁻⁸ Ω m"],
-                    ["1.1e-6", "Nichrome · 1.1 × 10⁻⁶ Ω m"],
-                  ]}
-                  onChange={(v) => change({ rho: +v })}
+                  value={s.material}
+                  options={WIRE_MATERIAL_OPTIONS}
+                  onChange={(v) => change({ material: v as WireMaterialId })}
                 />
+                <p className="muted">
+                  Resistivity ρ = {material.resistivityLabel} Ω m.
+                </p>
+                <p className="muted">{material.description}</p>
                 <Range
                   label="Conductor length"
                   value={s.length}
@@ -176,8 +183,8 @@ export default function Ohm({ mode, resetKey }: SimProps) {
             </Equation>
             {s.device === "wire" && (
               <p className="muted">
-                A = {fmt(s.area * 1e-6)} m². R_wire = {fmt(s.rho)} × {s.length}{" "}
-                / {fmt(s.area * 1e-6)} = {fmt(wireR)} Ω.
+                A = {fmt(s.area * 1e-6)} m². R_wire = {fmt(material.rho)} ×{" "}
+                {s.length} / {fmt(s.area * 1e-6)} = {fmt(wireR)} Ω.
               </p>
             )}
           </>

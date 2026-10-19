@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   timeout: 45000,
@@ -19,6 +19,16 @@ export default defineConfig({
     { name: "chromium", use: { browserName: "chromium" } },
     { name: "firefox", use: { browserName: "firefox" } },
     { name: "webkit", use: { browserName: "webkit" } },
+    {
+      name: "chromium-mobile",
+      testMatch: "material-selection.spec.ts",
+      use: { ...devices["Pixel 7"], browserName: "chromium" },
+    },
+    {
+      name: "webkit-mobile",
+      testMatch: "material-selection.spec.ts",
+      use: { ...devices["iPhone 13"], browserName: "webkit" },
+    },
   ],
   webServer: {
     command: "npm run preview -- --port 4173 --strictPort",

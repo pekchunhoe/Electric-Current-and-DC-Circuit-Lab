@@ -12,6 +12,12 @@ async function set(p: Page, label: string, value: number) {
     .fill(String(value));
 }
 const meter = (p: Page, n: number) => p.locator(".meters .meter strong").nth(n);
+async function pauseClock(p: Page) {
+  const start = new Date("2026-01-01T00:00:00Z");
+  await p.clock.install({ time: start });
+  // A fixed future target avoids racing the browser against the host clock.
+  await p.clock.pauseAt(new Date(start.getTime() + 1000));
+}
 test("numeric fields allow decimal and signed typing while rejecting invalid physical values", async ({
   page,
 }) => {
@@ -203,8 +209,7 @@ test("energy integration uses elapsed time and piecewise power", async ({
   page,
 }) => {
   await open(page, 6);
-  await page.clock.install();
-  await page.clock.pauseAt(new Date());
+  await pauseClock(page);
   await page.getByRole("button", { name: "Run stopwatch" }).click();
   await page.clock.runFor(10000);
   await expect(meter(page, 1)).toHaveText("240J");
@@ -415,8 +420,7 @@ test("charge counter integrates independent of animation speed", async ({
   page,
 }) => {
   await open(page);
-  await page.clock.install();
-  await page.clock.pauseAt(new Date());
+  await pauseClock(page);
   await set(page, "Animation speed", 3);
   await page.getByRole("button", { name: "Start charge count" }).click();
   await page.clock.runFor(1000);

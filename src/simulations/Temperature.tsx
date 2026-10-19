@@ -18,6 +18,12 @@ import {
   type SimProps,
 } from "../components/Lab";
 import { Stage } from "../components/Circuit";
+const coefficientPresets: [string, string][] = [
+  ["0.004", "Reference metal · 0.004 °C⁻¹"],
+  ["0.00393", "Copper · 0.00393 °C⁻¹"],
+  ["0.00429", "Aluminium · 0.00429 °C⁻¹"],
+  ["0.0004", "Nichrome · 0.0004 °C⁻¹"],
+];
 export default function Temperature({ mode, resetKey }: SimProps) {
   const { s, set, setState, reset } = useLab("temperature", {
     t: 70,
@@ -136,13 +142,14 @@ export default function Temperature({ mode, resetKey }: SimProps) {
             <Select
               label="Metal coefficient preset"
               value={String(s.alpha)}
-              options={[
-                ["0.004", "Reference metal · 0.004 °C⁻¹"],
-                ["0.00393", "Copper · 0.00393 °C⁻¹"],
-                ["0.00429", "Aluminium · 0.00429 °C⁻¹"],
-                ["0.0004", "Nichrome · 0.0004 °C⁻¹"],
-                [String(s.alpha), "Current coefficient"],
-              ]}
+              options={
+                coefficientPresets.some(([value]) => value === String(s.alpha))
+                  ? coefficientPresets
+                  : [
+                      ...coefficientPresets,
+                      [String(s.alpha), "Current coefficient"],
+                    ]
+              }
               onChange={(v) => change({ alpha: +v })}
             />
             <Range
