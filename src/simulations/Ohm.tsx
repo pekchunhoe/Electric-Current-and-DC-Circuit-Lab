@@ -205,7 +205,7 @@ export default function Ohm({ mode, resetKey }: SimProps) {
       />
       {mode === "Experiment" && (
         <Activity
-          aim="Experiment 2 · Verify Ohm’s Law and determine equivalent resistance by graphing."
+          aim="Verify Ohm’s Law and determine equivalent resistance by graphing."
           steps={[
             "Select a resistor and close the switch. Keep resistance and temperature fixed.",
             "Set five different supply voltages. Record each V and I pair in the notebook.",
@@ -238,8 +238,8 @@ export default function Ohm({ mode, resetKey }: SimProps) {
           conductor remains at fixed temperature; self-heating is excluded.
           Large calculated currents in low-resistance wires are theoretical;
           this is a virtual investigation. The diagram shows the equivalent test
-          load for series/parallel graphing; inspect individual branches in tab
-          3.5.
+          load for series/parallel graphing; inspect individual branches in the
+          Series &amp; parallel tab.
         </p>
       </Notes>
     </>

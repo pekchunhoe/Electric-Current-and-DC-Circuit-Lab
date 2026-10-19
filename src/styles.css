@@ -110,7 +110,7 @@ a {
   color-scheme: light;
 }
 .site-header {
-  height: 92px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -155,20 +155,6 @@ a {
   align-items: center;
   gap: 25px;
 }
-.semester {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.semester i,
-.eyebrow i {
-  width: 3px;
-  height: 3px;
-  background: var(--muted);
-  border-radius: 50%;
-}
 .theme-button {
   width: 42px;
   padding: 0;
@@ -184,7 +170,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 42px 0 31px;
+  padding: 30px 0 26px;
   gap: 30px;
 }
 .eyebrow {
@@ -196,15 +182,6 @@ a {
   align-items: center;
   gap: 10px;
   font-weight: 600;
-}
-.eyebrow > span {
-  font-size: 10px;
-  color: var(--cyan);
-  padding: 3px 7px;
-  background: color-mix(in srgb, var(--cyan), transparent 90%);
-  border: 1px solid color-mix(in srgb, var(--cyan), transparent 75%);
-  border-radius: 4px;
-  letter-spacing: 1px;
 }
 h1 {
   font-size: 34px;
@@ -270,15 +247,6 @@ h1 span {
   color: var(--muted);
   font-weight: 500;
 }
-.tab-number {
-  font-size: 10px;
-  display: grid;
-  place-items: center;
-  width: 25px;
-  height: 25px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
 .topic-tabs button[aria-selected="true"] {
   color: var(--cyan);
   background: color-mix(in srgb, var(--cyan), transparent 95%);
@@ -291,10 +259,6 @@ h1 span {
   left: 0;
   right: 0;
   background: var(--cyan);
-}
-.topic-tabs button[aria-selected="true"] .tab-number {
-  border-color: var(--cyan);
-  background: color-mix(in srgb, var(--cyan), transparent 90%);
 }
 .nav-hint {
   display: none;
@@ -1196,11 +1160,6 @@ footer b {
   font-weight: 600;
   color: var(--text);
 }
-.footer-dot {
-  color: var(--cyan);
-  font-size: 7px;
-  padding: 0 5px;
-}
 .skip {
   position: fixed;
   top: -100px;
@@ -1270,7 +1229,7 @@ footer b {
 }
 @media (max-width: 760px) {
   .site-header {
-    height: 73px;
+    height: 68px;
     padding: 0 20px;
   }
   .brand {
@@ -1288,22 +1247,11 @@ footer b {
   .header-right {
     gap: 12px;
   }
-  .semester {
-    font-size: 10px;
-  }
-  .semester i {
-    display: none;
-  }
-  .semester {
-    display: block;
-    max-width: 62px;
-    line-height: 1.7;
-  }
   .page-shell {
     padding: 0 18px;
   }
   .intro {
-    padding: 28px 0 24px;
+    padding: 24px 0 20px;
   }
   h1 {
     font-size: 29px;
@@ -1585,9 +1533,6 @@ footer b {
     gap: 8px;
     font-size: 17px;
   }
-  .semester {
-    font-size: 9px;
-  }
   .theme-button {
     min-height: 40px;
     width: 36px;
@@ -1643,12 +1588,6 @@ footer b {
 }
 
 /* Instrument labels remain readable when scientific diagrams shrink to phone width. */
-.chapter-subtitle {
-  margin-bottom: 8px !important;
-  color: var(--cyan) !important;
-  font-size: 11px !important;
-  letter-spacing: 0.5px;
-}
 .graph-inspect {
   display: block;
   margin: 16px 12px 0;

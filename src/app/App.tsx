@@ -10,16 +10,16 @@ import {
 import type { Mode } from "../components/Lab";
 const topics = [
   {
-    title: "Electrical current",
-    short: "Electrical current",
+    title: "Electrical Current",
+    short: "Electrical Current",
     icon: "↝",
     description:
       "Look inside a conductor. See how microscopic motion becomes measurable electric current.",
     component: lazy(() => import("../simulations/Current")),
   },
   {
-    title: "Ohm’s Law and resistivity",
-    short: "Ohm’s Law & resistivity",
+    title: "Ohm’s Law and Resistivity",
+    short: "Ohm’s Law & Resistivity",
     icon: "Ω",
     description:
       "Build a V–I investigation, verify Ohm’s Law and explore what gives a wire its resistance.",
@@ -159,9 +159,6 @@ export default function App() {
           </span>
         </a>
         <div className="header-right">
-          <span className="semester">
-            Physics 2 <i /> Semester 2
-          </span>
           <button
             className="theme-button"
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
@@ -174,15 +171,10 @@ export default function App() {
       <div className="page-shell">
         <section className="intro">
           <div>
-            <div className="eyebrow">
-              <span>SP025</span> CHAPTER 03 <i /> VIRTUAL LABORATORY
-            </div>
+            <div className="eyebrow">VIRTUAL LABORATORY</div>
             <h1>
               Electric Current <span>and DC Circuits</span>
             </h1>
-            <p className="chapter-subtitle">
-              Physics 2 · Semester 2 · Chapter 3
-            </p>
             <p>
               A hands-on way to understand the invisible. Adjust, measure,
               discover.
@@ -192,11 +184,11 @@ export default function App() {
             <span className="badge-icon">◎</span>
             <div>
               Built for exploration
-              <small>9 experiments · One connected chapter</small>
+              <small>9 interactive experiments</small>
             </div>
           </div>
         </section>
-        <nav className="topic-nav" aria-label="Chapter 3 subtopics">
+        <nav className="topic-nav" aria-label="Laboratory topics">
           <div className="topic-tabs" role="tablist" aria-label="Subtopics">
             {topics.map((t, j) => (
               <button
@@ -209,8 +201,8 @@ export default function App() {
                 aria-selected={j === active}
                 aria-controls="experiment"
                 tabIndex={j === active ? 0 : -1}
-                title={`3.${j + 1} ${t.title}`}
-                aria-label={`3.${j + 1} ${t.title}`}
+                title={t.title}
+                aria-label={t.title}
                 onClick={() => activate(j)}
                 onKeyDown={(e) => {
                   if (
@@ -228,7 +220,6 @@ export default function App() {
                   }
                 }}
               >
-                <span className="tab-number">3.{j + 1}</span>
                 <span>{t.short}</span>
               </button>
             ))}
@@ -246,10 +237,8 @@ export default function App() {
               <div className="experiment-title">
                 <span className="topic-icon">{topic.icon}</span>
                 <div>
-                  <span className="eyebrow">EXPERIMENT 3.{active + 1}</span>
-                  <h2>
-                    3.{active + 1} {topic.title}
-                  </h2>
+                  <span className="eyebrow">INTERACTIVE EXPERIMENT</span>
+                  <h2>{topic.title}</h2>
                 </div>
               </div>
               <button
@@ -305,12 +294,9 @@ export default function App() {
         </main>
         <footer>
           <span>
-            <b>DC Circuit Lab</b> · Physics 2 · Semester 2
+            <b>DC Circuit Lab</b>
           </span>
-          <span>
-            SP025 curriculum · Chapter 3 <span className="footer-dot">●</span>{" "}
-            All calculations run on your device
-          </span>
+          <span>All calculations run on your device</span>
         </footer>
       </div>
     </div>

@@ -115,7 +115,12 @@ test("material label, selected option and physics remain synchronized through re
     );
     if (id === "nichrome") {
       // The desktop bench is sticky; return above it before an element capture.
-      await page.getByRole("heading", { name: /3\.2/ }).click();
+      await page
+        .getByRole("heading", {
+          name: "Ohm’s Law and Resistivity",
+          exact: true,
+        })
+        .click();
       await page.locator(".lab-grid").screenshot({
         path: `.tools/material-selection/${info.project.name}-after.png`,
       });

@@ -426,7 +426,7 @@ export default function Potentiometer({ mode, resetKey }: SimProps) {
       </Panel>
       {mode === "Experiment" && (
         <Activity
-          aim="Experiment 3 · Determine the internal resistance of a dry cell by null balance."
+          aim="Determine the internal resistance of a dry cell by null balance."
           steps={[
             "Apparatus: 100 cm uniform wire (10 Ω), primary source, rheostat, test cell, galvanometer, known load and jockey.",
             "Close the primary switch. Keep the primary settings fixed. With cell 1 unloaded, slide to null and record l₁. Default: 80.0 cm.",
