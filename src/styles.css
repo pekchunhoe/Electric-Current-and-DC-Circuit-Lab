@@ -1662,3 +1662,162 @@ footer b {
   padding: 8px;
   margin-top: 6px;
 }
+
+/* Three physical branch currents, independent reference arrows and loop traversal. */
+.kirchhoff-lab h4 {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 16px 0 12px;
+}
+.kirchhoff-lab .branch-references {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 16px;
+  min-width: 0;
+}
+.branch-references legend {
+  font-size: 12px;
+  color: var(--text);
+  padding: 0 5px;
+}
+.branch-references .select-label:last-of-type {
+  margin-bottom: 8px;
+}
+.kirchhoff-lab .stage .branch-current-label,
+.junction-diagram .branch-current-label {
+  fill: var(--cyan);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+.current-arrow {
+  stroke: var(--cyan);
+  stroke-width: 2;
+  fill: none;
+}
+.assumed-arrow {
+  stroke-dasharray: 6 5;
+}
+.junction-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--bench);
+  border-radius: 8px;
+}
+.junction-label,
+.kirchhoff-lab .stage .junction-label {
+  fill: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+}
+.junction-caption {
+  fill: var(--muted);
+  font-size: 15px;
+}
+.branch-meter strong {
+  color: var(--cyan);
+  font-size: clamp(20px, 2vw, 26px);
+}
+.branch-meter p {
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 9px 0 0;
+  overflow-wrap: anywhere;
+}
+.branch-meter .reference-caption {
+  color: var(--muted);
+}
+.kirchhoff-workbench > section {
+  min-width: 0;
+}
+.direction-views button {
+  flex: 1 1 150px;
+  min-height: 44px;
+}
+.direction-views button[aria-pressed="true"] {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: color-mix(in srgb, var(--cyan), var(--panel) 94%);
+}
+.junction-totals,
+.power-balance {
+  border: 1px solid var(--border);
+  background: var(--bench);
+  border-radius: 8px;
+  padding: 4px 14px;
+  margin: 16px 0;
+}
+.kirchhoff-lab .conservation-balance,
+.kirchhoff-lab .conservation-residual {
+  color: var(--cyan);
+}
+.signed-kcl,
+.signed-kvl {
+  color: var(--text) !important;
+  font-size: 15px !important;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.kcl-substitution,
+.kvl-substitution,
+.voltage-terms {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.voltage-terms {
+  padding-left: 20px;
+}
+.kirchhoff-workbench .coefficient-inputs {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.kirchhoff-lab .calculation-steps {
+  border: 0;
+  background: transparent;
+  margin: 0;
+}
+.calculation-steps > ol {
+  padding-left: 22px;
+}
+.calculation-steps li {
+  margin-bottom: 16px;
+}
+.conservation-exercise input {
+  max-width: 100%;
+}
+@media (max-width: 760px) {
+  .branch-meters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .branch-meter {
+    padding: 16px 18px;
+  }
+  .branch-meter > span {
+    min-height: 0;
+    font-size: 12px;
+  }
+  .branch-meter strong {
+    font-size: 26px;
+    margin: 4px 0;
+  }
+  .branch-meter p {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  .kirchhoff-lab .stage .branch-current-label,
+  .junction-diagram .branch-current-label {
+    font-size: 20px;
+  }
+  .kirchhoff-workbench .coefficient-inputs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .kirchhoff-workbench .notes > div {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

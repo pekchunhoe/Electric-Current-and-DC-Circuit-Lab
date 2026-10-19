@@ -21,12 +21,12 @@ export default defineConfig({
     { name: "webkit", use: { browserName: "webkit" } },
     {
       name: "chromium-mobile",
-      testMatch: "material-selection.spec.ts",
+      testMatch: ["material-selection.spec.ts", "kirchhoff.spec.ts"],
       use: { ...devices["Pixel 7"], browserName: "chromium" },
     },
     {
       name: "webkit-mobile",
-      testMatch: "material-selection.spec.ts",
+      testMatch: ["material-selection.spec.ts", "kirchhoff.spec.ts"],
       use: { ...devices["iPhone 13"], browserName: "webkit" },
     },
   ],

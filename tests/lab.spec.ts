@@ -50,6 +50,9 @@ test("numeric fields allow decimal and signed typing while rejecting invalid phy
 test("all nine tabs: phone and desktop layout, equations and accessible navigation", async ({
   page,
 }, info) => {
+  // This audit visits 72 layouts and captures full pages, including the larger
+  // Kirchhoff workbench. Allow capture time under parallel browser execution.
+  test.setTimeout(90000);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
@@ -176,21 +179,28 @@ test("Kirchhoff signed currents, equation activity and two loop conservation", a
 }) => {
   await open(page, 5);
   await set(page, "Source ε₂ (signed)", -18);
-  await expect(meter(page, 1)).toContainText("-1.91");
+  await expect(meter(page, 1)).toHaveText("−0.973A");
   await page
-    .getByRole("switch", { name: "Assume I₂ clockwise", exact: true })
-    .click();
-  await expect(meter(page, 1)).toHaveText("1.91A");
+    .getByLabel("I₂ reference direction", { exact: true })
+    .selectOption("reverse");
+  await expect(meter(page, 1)).toHaveText("+0.973A");
+  await page.getByText("Build a junction equation", { exact: true }).click();
   await page
     .getByLabel("Construct the junction equation", { exact: false })
-    .fill("i1 = i2 + is");
+    .fill("i1 + i2 = i3");
   await page.getByRole("button", { name: "Check equation" }).click();
-  await expect(page.getByRole("status")).toContainText("Correct");
-  await page.getByLabel("Loop I₁ coefficient", { exact: true }).fill("6");
-  await page.getByLabel("Loop I₂ coefficient", { exact: true }).fill("2");
-  await page.getByLabel("Loop source term", { exact: true }).fill("12");
+  await expect(page.locator(".junction-equation-feedback")).toContainText(
+    "Correct",
+  );
+  await page.getByText("Build a loop equation", { exact: true }).click();
+  await page.getByLabel("Loop I₁ coefficient", { exact: true }).fill("4");
+  await page.getByLabel("Loop I₂ coefficient", { exact: true }).fill("0");
+  await page.getByLabel("Loop I₃ coefficient", { exact: true }).fill("5");
+  await page.getByLabel("Loop source term", { exact: true }).fill("18");
   await page.getByRole("button", { name: "Check loop equation" }).click();
-  await expect(page.getByRole("status").last()).toContainText("Correct");
+  await expect(page.locator(".loop-equation-feedback")).toContainText(
+    "Correct",
+  );
   await page.getByLabel("Loop to analyse").selectOption("right");
   await page
     .getByRole("switch", { name: "Clockwise traversal", exact: true })
@@ -199,11 +209,11 @@ test("Kirchhoff signed currents, equation activity and two loop conservation", a
     "0",
   );
   await page
-    .getByRole("button", { name: "Reveal simultaneous solution" })
+    .getByText("How I₁, I₂ and I₃ Are Calculated", { exact: true })
     .click();
-  await expect(page.locator(".solution")).toContainText("Determinant");
+  await expect(page.locator(".calculation-steps")).toContainText("Determinant");
   await page.getByLabel("Circuit structure").selectOption("single");
-  await expect(meter(page, 0)).toHaveText("2A");
+  await expect(meter(page, 0)).toHaveText("+2.000A");
 });
 test("energy integration uses elapsed time and piecewise power", async ({
   page,
@@ -287,7 +297,7 @@ test("all nine challenges: attempts, progressive hints, correct answers and work
   page,
 }) => {
   await page.goto("/");
-  for (const [n, answer] of [1, 2, 12, 10, 10, 12 / 11, 240, 4, 1].entries()) {
+  for (const [n, answer] of [1, 2, 12, 10, 10, 90 / 37, 240, 4, 1].entries()) {
     await tabs(page).nth(n).click();
     await page.getByRole("button", { name: "Challenge", exact: true }).click();
     await expect(
@@ -302,7 +312,14 @@ test("all nine challenges: attempts, progressive hints, correct answers and work
     await page.getByRole("button", { name: "Check answer" }).click();
     await expect(page.locator(".feedback.correct")).toBeVisible();
     await page.getByRole("button", { name: "Show worked solution" }).click();
-    await expect(page.locator(".solution")).toBeVisible();
+    // Kirchhoff also has a separate expandable calculation panel.
+    await expect(
+      page
+        .getByRole("heading", { name: "Test your understanding", exact: true })
+        .locator("..")
+        .locator("..")
+        .locator(".solution"),
+    ).toBeVisible();
   }
 });
 test("light theme, reduced motion, local requests and performance evidence", async ({
